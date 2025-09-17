@@ -1,0 +1,48 @@
+{
+  "name": "LLM Claude 3 Environment",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": ".."
+  },
+  "features": {},
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter",
+        "ms-vscode.vscode-json"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/bin/python",
+        "python.terminal.activateEnvironment": true
+      }
+    }
+  },
+  "forwardPorts": [
+    8000,
+    8080,
+    3000
+  ],
+  "portsAttributes": {
+    "8000": {
+      "label": "Port 8000",
+      "onAutoForward": "notify"
+    },
+    "8080": {
+      "label": "Port 8080",
+      "onAutoForward": "notify"
+    },
+    "3000": {
+      "label": "Port 3000",
+      "onAutoForward": "notify"
+    }
+  },
+  "remoteEnv": {
+    "PYTHONPATH": "/workspace/llm-claude-3",
+    "DEVELOPMENT": "true"
+  },
+  "shutdownAction": "stopContainer",
+  "postCreateCommand": "/usr/local/bin/copy-repo.sh && echo '\ud83c\udf89 LLM Claude 3 environment is ready!' && echo 'Run: llm keys set claude' to configure your API key",
+  "remoteUser": "developer"
+}
